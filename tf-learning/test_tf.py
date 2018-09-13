@@ -64,3 +64,15 @@ plt.show()
 
 
 # print(sess.run([W, b]))
+
+x = tf.placeholder("float", [None, 784])
+y = tf.placeholder("float", [None, 10])  # None is for infinite
+W = tf.Variable(tf.zeros([784, 10]))
+b = tf.Variable(tf.zeros([10]))
+# LOGISTIC REGRESSION MODEL
+actv = tf.nn.softmax(tf.matmul(x, W) + b)
+# COST FUNCTION
+cost = tf.reduce_mean(-tf.reduce_sum(y*tf.log(actv), reduction_indices=1))
+# OPTIMIZER
+learning_rate = 0.01
+optm = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
